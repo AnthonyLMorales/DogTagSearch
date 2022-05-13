@@ -2,7 +2,6 @@ import os
 import pdfplumber
 import csv
 
-endStatement = "the seller's name under the appropriate product. Then, in the \"Further Information\" section, click \"Contact the Seller.\""
 enstat = "click \"Contact the Seller.\""
 headers = ['OrderNumber', "Pet Names", "SKU", "Color", "Line1",
            "line2", "line3", "line4", "line5"]
@@ -30,29 +29,22 @@ class PDFReader:
                     
                     # Checks if the end of the page has been reach, if not then add the next page to the order
                     if enstat in content[len(content)-1]:
-
-                        # ignore the first and end statement
-                        # order.extend(content[1:-1])
                         order.extend(content)
                     
-                        init_details = self.parse(order)
+                        init_details = self.find_order_num(order)
                     
-                        total_order_list = self.find_total_order(order)
-                        order_details = self.subOrder(total_order_list)
+                        # total_order_list = self.find_total_order(order)
+                        order_details = self.subOrder(order)
                         order_details.parse_each_order()
-                        
-
                         customer = CustomerOrder(init_details, order_details.pet_name, order_details.sku,
                                                 order_details.line1, order_details.line2,
                                                 order_details.line3, order_details.line4, order_details.line5,
                                                 order_details.color)
                         print(customer)
                         all_customers.append(customer)
-                        
                         # now that a customer has been stored and we reached the final order, we must reset order
                         order = []
                         count += 1
-                        
                     else:
                         order.extend(content)
         print(count)
@@ -68,15 +60,15 @@ class PDFReader:
                 writer.writerow(i.finalOrder)
         f.close()
 
-    def find_total_order(self, array):
-        total_order_list = []
-        for i in range(0, len(array)):
-            if "Grand total:" in array[i]:
-                return total_order_list
-            else:
-                total_order_list.append(array[i])
+    # def find_total_order(self, array):
+    #     total_order_list = []
+    #     for i in range(0, len(array)):
+    #         if "Grand total:" in array[i]:
+    #             return total_order_list
+    #         else:
+    #             total_order_list.append(array[i])
 
-        return total_order_list
+    #     return total_order_list
 
     def subOrder(self, array):
         order_list = []
@@ -95,13 +87,12 @@ class PDFReader:
                 temp.append(i)
             else:
                 temp.append(i)
-        
+    
         order_list.append(temp)
 
-    
         return Track(order_list)
 
-    def parse(self, array):
+    def find_order_num(self, array):
         temp = []
         for i in array:
             if "Thank you" in i:

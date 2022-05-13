@@ -23,7 +23,6 @@ def search(dictionary, csvs):
                 Good_row = False
         if Good_row:
             retRows.append(row)
-    print(retRows)
     return retRows
 
 def download(path):

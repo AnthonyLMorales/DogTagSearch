@@ -150,12 +150,12 @@ class UI(QMainWindow):
         # Create a button in the window
         self.button5 = QPushButton('Get Final CSV', self)
         self.button5.move(20,80)
-        self.button5.setGeometry(QtCore.QRect(275, 510, 113, 32))
+        self.button5.setGeometry(QtCore.QRect(200, 480, 113, 32))
         
         # Create a button in the window
-        self.button3 = QPushButton('Incorrect Info', self)
-        self.button3.move(20,80)
-        self.button3.setGeometry(QtCore.QRect(200, 480, 113, 32))
+        # self.button3 = QPushButton('Incorrect Info', self)
+        # self.button3.move(20,80)
+        # self.button3.setGeometry(QtCore.QRect(200, 480, 113, 32))
 
         # Create a button in the window
         self.button4 = QPushButton('Correct Info', self)
@@ -181,9 +181,7 @@ class UI(QMainWindow):
         options |= QFileDialog.DontUseNativeDialog
         fileName, _ = QFileDialog.getSaveFileName(self,"QFileDialog.getSaveFileName()","","All Files (*);;Text Files (*.txt)", options=options)
         if fileName:
-            print(fileName)
-
-        search.download(fileName)
+            search.download(fileName)
 
     def on_cancel(self):
         self.textbox1.setText("")
@@ -215,7 +213,7 @@ class UI(QMainWindow):
             self.dictt["Line5"] = textboxValue5
         if textboxValue6 != "":
             self.dictt["PetName"] = textboxValue6
-        print(self.dictt)
+        
 
         self.outputt = search.search(self.dictt, self.file_to_write)
         realoutput = ""
@@ -248,15 +246,13 @@ class UI(QMainWindow):
 
     def on_correct_info(self):
         search.right_entries.append(self.outputt)
-        print("right entries ", search.right_entries)
+        
 
 
     def on_openfile(self):
         self.file = QFileDialog.getOpenFileName(self," Open File", "", "All Files (*);;Python Files (*.py)")
         outputfile = self.file[0].split("/")
-        print(self.file)
         self.file_to_write = "./ProccessFiles/"+ outputfile[len(outputfile) - 1] 
-        print(self.file_to_write)
         
         
 #initialize
