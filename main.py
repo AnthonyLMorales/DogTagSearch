@@ -193,56 +193,59 @@ class UI(QMainWindow):
         self.label.setText("")
         self.dictt = { 'PetName':'0', 'Line1': '0', "Line2": '0', "Line3": '0', "Line4": '0', "Line5": '0'}
     def on_enter(self):
-        #dictt = { 'PetName':'0', 'Line1': '0', "Line2": '0', "Line3": '0', "Line4": '0', "Line5": '0'}
-        textboxValue1 = self.textbox1.text()
-        textboxValue2 = self.textbox2.text()
-        textboxValue3 = self.textbox3.text()
-        textboxValue4 = self.textbox4.text()
-        textboxValue5 = self.textbox5.text()
-        textboxValue6 = self.textbox6.text()
+        try:
+            #dictt = { 'PetName':'0', 'Line1': '0', "Line2": '0', "Line3": '0', "Line4": '0', "Line5": '0'}
+            textboxValue1 = self.textbox1.text()
+            textboxValue2 = self.textbox2.text()
+            textboxValue3 = self.textbox3.text()
+            textboxValue4 = self.textbox4.text()
+            textboxValue5 = self.textbox5.text()
+            textboxValue6 = self.textbox6.text()
 
-        if textboxValue1 != "":
-            self.dictt["Line1"] = textboxValue1
-        if textboxValue2 != "":
-            self.dictt["Line2"] = textboxValue2
-        if textboxValue3 != "":
-            self.dictt["Line3"] = textboxValue3
-        if textboxValue4 != "":
-            self.dictt["Line4"] = textboxValue4
-        if textboxValue5 != "":
-            self.dictt["Line5"] = textboxValue5
-        if textboxValue6 != "":
-            self.dictt["PetName"] = textboxValue6
-        
+            if textboxValue1 != "":
+                self.dictt["Line1"] = textboxValue1
+            if textboxValue2 != "":
+                self.dictt["Line2"] = textboxValue2
+            if textboxValue3 != "":
+                self.dictt["Line3"] = textboxValue3
+            if textboxValue4 != "":
+                self.dictt["Line4"] = textboxValue4
+            if textboxValue5 != "":
+                self.dictt["Line5"] = textboxValue5
+            if textboxValue6 != "":
+                self.dictt["PetName"] = textboxValue6
+            
 
-        self.outputt = search.search(self.dictt, self.file_to_write)
-        realoutput = ""
-        for tag in self.outputt:
-            realoutput += "Petname: "
-            realoutput += str(tag[1])
-            realoutput += "\n\n"
-            realoutput += "Line 1: "
-            realoutput += str(tag[4])
-            realoutput += "\n\n"
-            realoutput += "Line 2: "
-            realoutput += str(tag[5])
-            realoutput += "\n\n"
-            realoutput += "Line 3: "
-            realoutput += str(tag[6])
-            realoutput += "\n\n"
-            realoutput += "Line 4: "
-            realoutput += str(tag[7])
-            realoutput += "\n\n"
-            realoutput += "Line 5: "
-            realoutput += str(tag[8])
-            realoutput += "\n\n"
-            realoutput += "SKU: "
-            realoutput += str(tag[2])
-            realoutput += "\n"
-            realoutput += "**NEXT TAG**\n\n"
-        #self.label10.setText(str(self.outputt[0]))
-        self.label10.setText(str(realoutput))
-        self.label8.setText("# of tags:"+str(len(self.outputt)))
+            self.outputt = search.search(self.dictt, self.file_to_write)
+            realoutput = ""
+            for tag in self.outputt:
+                realoutput += "Petname: "
+                realoutput += str(tag[1])
+                realoutput += "\n\n"
+                realoutput += "Line 1: "
+                realoutput += str(tag[4])
+                realoutput += "\n\n"
+                realoutput += "Line 2: "
+                realoutput += str(tag[5])
+                realoutput += "\n\n"
+                realoutput += "Line 3: "
+                realoutput += str(tag[6])
+                realoutput += "\n\n"
+                realoutput += "Line 4: "
+                realoutput += str(tag[7])
+                realoutput += "\n\n"
+                realoutput += "Line 5: "
+                realoutput += str(tag[8])
+                realoutput += "\n\n"
+                realoutput += "SKU: "
+                realoutput += str(tag[2])
+                realoutput += "\n"
+                realoutput += "**NEXT TAG**\n\n"
+            #self.label10.setText(str(self.outputt[0]))
+            self.label10.setText(str(realoutput))
+            self.label8.setText("# of tags:"+str(len(self.outputt)))
+        except:
+            return
 
     def on_correct_info(self):
         search.right_entries.append(self.outputt)
